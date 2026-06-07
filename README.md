@@ -46,6 +46,7 @@ A 1k ohm resistor in series with each LED limits the current to a safe level (ap
 |                  | LED2 Cathode| Pin 8       |
 
 See `diagram/wiring_diagram.png` for a visual reference.
+<img width="1273" height="656" alt="image" src="https://github.com/user-attachments/assets/b8deff0d-847b-4c4e-8b58-a2530d119c66" />
 
 ---
 
