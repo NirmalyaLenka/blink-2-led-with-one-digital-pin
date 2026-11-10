@@ -99,6 +99,22 @@ MIT License. See `LICENSE` for details.
 
 ---
 
+## Skills & technologies
+
+`Arduino/C++`
+
+
+## Repository structure
+
+Key files and folders (not exhaustive):
+
+- `LICENSE`
+- `README.md`
+- `explanation.md`
+- `sketch.ino`
+- `wiring_diagram.png`
+
+
 ## Maintenance & Audit
 
 - **Audit date:** 10 November 2026
