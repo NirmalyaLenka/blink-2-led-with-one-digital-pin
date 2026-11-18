@@ -1,124 +1,77 @@
 # One Pin, Two LEDs
 
-Control two LEDs with a single digital output pin on an Arduino Uno. The LEDs blink in alternating fashion: when one is on, the other is off. No extra ICs or shift registers are needed. The trick relies on wiring the two LEDs in opposite polarity on the same pin.
+This Arduino Uno demonstration uses one digital output to make two LEDs alternate. The sketch drives digital pin 8 HIGH and LOW; the opposite-polarity wiring makes one LED conduct in each state.
 
----
+## How it works
 
-## How It Works
+- Pin 8 HIGH: the LED connected from pin 8 toward GND is on; the LED connected from +5 V toward pin 8 is off.
+- Pin 8 LOW: the first LED is off; the second LED is on.
+- The sketch waits 1,000 ms in each state, so the active LED changes about once per second.
 
-A digital output pin can be either HIGH (5V) or LOW (0V). By connecting one LED so that its anode faces the pin and the other so that its cathode faces the pin, the two LEDs respond in opposite ways to the same signal.
-
-```
-Pin 8 HIGH:
-  LED1: anode at 5V, cathode at GND  ->  ON
-  LED2: cathode at 5V, anode at 5V   ->  OFF  (no potential difference)
-
-Pin 8 LOW:
-  LED1: anode at 0V, cathode at GND  ->  OFF
-  LED2: cathode at 0V, anode at 5V   ->  ON
-```
-
-A 1k ohm resistor in series with each LED limits the current to a safe level (approximately 4 mA per LED at 5V).
-
----
+The LEDs are not controlled by separate software outputs. The alternating behavior depends on the circuit being wired with the two LEDs in opposite directions.
 
 ## Components
 
-| Component        | Quantity | Notes                    |
-|------------------|----------|--------------------------|
-| Arduino Uno      | 1        |                          |
-| LED (any color)  | 2        | Purple and cyan used here |
-| Resistor, 1k ohm | 2        | 1/4 W or higher           |
-| Breadboard       | 1        |                          |
-| Jumper wires     | 4-5      |                          |
-
----
+| Component | Quantity | Notes |
+|---|---:|---|
+| Arduino Uno (5 V logic) | 1 | Sketch uses digital pin 8 |
+| LEDs | 2 | Any suitable LED; forward voltage affects current |
+| 1 kΩ resistor | 2 | One in series with each LED |
+| Breadboard and jumper wires | As needed | For the low-voltage circuit |
 
 ## Wiring
 
-| Connection       | From        | To          |
-|------------------|-------------|-------------|
-| LED1 path        | Pin 8       | R1 (1k)     |
-|                  | R1          | LED1 Anode  |
-|                  | LED1 Cathode| GND         |
-| LED2 path        | 5V          | R2 (1k)     |
-|                  | R2          | LED2 Anode  |
-|                  | LED2 Cathode| Pin 8       |
+| Path | Connections |
+|---|---|
+| LED 1 | Pin 8 → 1 kΩ resistor → LED anode; LED cathode → GND |
+| LED 2 | +5 V → 1 kΩ resistor → LED anode; LED cathode → pin 8 |
 
-See `diagram/wiring_diagram.png` for a visual reference.
-<img width="1273" height="656" alt="image" src="https://github.com/user-attachments/assets/b8deff0d-847b-4c4e-8b58-a2530d119c66" />
+Use a current-limiting resistor for each LED. Do not connect an LED directly across the supply or an output pin. This wiring guide is for a 5 V Arduino Uno; do not assume the same circuit is appropriate for a 3.3 V board without checking its electrical limits.
 
----
+![Wiring diagram](wiring_diagram.png)
 
-## Files
+## Files in the repository
 
-```
-one_pin_2_leds/
-├── src/
-│   └── one_pin_2_leds.ino     # Arduino sketch
-├── diagram/
-│   └── wiring_diagram.png     # Circuit diagram
-├── docs/
-│   └── explanation.md         # Detailed circuit explanation
-├── README.md
-└── LICENSE
-```
+| Path | Purpose |
+|---|---|
+| `sketch.ino` | Arduino sketch; toggles pin 8 HIGH/LOW with 1-second delays |
+| `wiring_diagram.png` | Wiring diagram stored at the repository root |
+| `explanation.md` | Circuit principle and current-limiting explanation |
+| `LICENSE` | MIT license |
+| `README.md` | Project instructions |
 
----
+The sketch and diagram are at the repository root. The older paths `src/one_pin_2_leds.ino` and `diagram/wiring_diagram.png` are not present in the checked-in tree.
 
-## Getting Started
+## Upload the sketch
 
-1. Wire the circuit as described above (see the diagram).
-2. Open `src/one_pin_2_leds.ino` in the Arduino IDE.
-3. Select board: Tools > Board > Arduino Uno.
-4. Select the correct COM port under Tools > Port.
-5. Click Upload.
-6. Both LEDs will start blinking alternately at one-second intervals.
+1. Assemble the circuit with power disconnected and check both LED polarities and resistor placement.
+2. Open the checked-in `sketch.ino` in Arduino IDE.
+3. Select **Arduino Uno** under **Tools → Board** and the correct port under **Tools → Port**.
+4. Upload the sketch, then power the circuit and confirm that the LEDs alternate.
+5. If the IDE asks for a matching sketch folder, use a local working copy; do not rename repository files as part of this documentation update.
 
----
+There are no external Arduino libraries used by this sketch. Change `ledPin` to another valid digital output only if you also update the wiring. Change the `delay(1000)` values to alter the interval.
 
-## Customization
+## Simulation
 
-- Change the blink speed by adjusting the `delay(1000)` values (milliseconds).
-- Use any color of LED. Forward voltage differences between colors will slightly affect brightness but will not prevent operation at 5V with a 1k resistor.
-- Pin 8 can be changed to any digital output pin by updating the `ledPin` constant.
+The project has a Wokwi simulation link: https://wokwi.com/projects/465977896205616129. The link is provided as a reference; this maintenance pass did not run the simulation or test physical hardware.
 
----
+## Troubleshooting
 
-## Simulate Online
-
-This project was originally built and simulated on Wokwi:  
-https://wokwi.com/projects/465977896205616129
-
----
+- **Only one LED lights:** check that the two LEDs face opposite directions and that both series resistors are installed.
+- **Neither LED lights:** verify pin 8, GND, +5 V, LED polarity, and the selected board/port.
+- **Brightness differs:** LED forward voltage and component tolerances affect current; keep the current-limiting resistors installed.
 
 ## License
 
-MIT License. See `LICENSE` for details.
-
+MIT. See [`LICENSE`](LICENSE).
 
 ---
-
-## Skills & technologies
-
-`Arduino/C++`
-
-
-## Repository structure
-
-Key files and folders (not exhaustive):
-
-- `LICENSE`
-- `README.md`
-- `explanation.md`
-- `sketch.ino`
-- `wiring_diagram.png`
-
 
 ## Maintenance & Audit
 
 - **Audit date:** 11 November 2026
 - **Documentation status:** README reviewed and audit record added on this date.
-- **Scope and evidence:** This is a documentation-level maintenance pass. It does not establish that source code compiles, dependencies are current, security has been tested, or hardware/runtime behavior has been verified.
-- **Code and tests:** No new functional code changes or test results are claimed by this README update. Run project-specific build, test, and hardware/runtime checks before relying on the project.
-- **Maintenance baseline:** Documentation status recorded through 11 November 2026; revisit setup instructions, dependencies, known limitations, and tests when the project changes.
+- **Scope and evidence:** Documentation review of `sketch.ino`, `explanation.md`, `wiring_diagram.png`, and the existing README. The file paths above were checked against the default branch.
+- **Code and tests:** No sketch changes were made; no compilation, simulation, or physical hardware test was performed.
+- **Maintenance baseline:** Documentation status recorded through 11 November 2026; recheck the circuit, sketch, and diagram if pin usage or hardware changes.
