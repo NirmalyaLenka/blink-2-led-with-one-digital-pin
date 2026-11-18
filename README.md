@@ -70,8 +70,8 @@ MIT. See [`LICENSE`](LICENSE).
 
 ## Maintenance & Audit
 
-- **Audit date:** 11 November 2026
-- **Documentation status:** README reviewed and audit record added on this date.
+- **Audit date:** 18 November 2026
+- **Documentation status:** README reviewed and audit record updated on this date.
 - **Scope and evidence:** Documentation review of `sketch.ino`, `explanation.md`, `wiring_diagram.png`, and the existing README. The file paths above were checked against the default branch.
 - **Code and tests:** No sketch changes were made; no compilation, simulation, or physical hardware test was performed.
-- **Maintenance baseline:** Documentation status recorded through 11 November 2026; recheck the circuit, sketch, and diagram if pin usage or hardware changes.
+- **Maintenance baseline:** Documentation status recorded through 18 November 2026; recheck the circuit, sketch, and diagram if pin usage or hardware changes.
